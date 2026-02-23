@@ -1,0 +1,269 @@
+---
+import blueskyLogo from "../images/bluesky-logo.svg";
+import githubLogo from "../images/github-logo.svg";
+import linkedinLogo from "../images/linkedin-logo.svg";
+import xLogo from "../images/x-logo.svg";
+import zennLogo from "../images/zenn-logo.svg";
+import Layout from "../layouts/Layout.astro";
+import typo from "../styles/typograhy.module.css";
+---
+
+<Layout title="TOP | Kenji">
+    <section class="page-section" id="home">
+        <h2 class:list={["home-title", "reveal", typo.heroTitle]}>Kenji</h2>
+    </section>
+    <section class="page-section about-on-home" id="about">
+        <div class="about-section">
+            <div class="reveal">
+                <h2 class:list={["about-header", typo.sectionTitle]}>
+                    Highlights
+                </h2>
+                <ul class="highlights-list">
+                    <li class:list={["highlight-item", typo.bodyText]}>
+                        <strong
+                            >Design Engineer at <a
+                                class:list={["highlight-link", typo.linkText]}
+                                href="https://plaid.co.jp/"
+                                target="_blank"
+                                rel="noreferrer">Plaid, Inc.</a
+                            ></strong
+                        > Led a large-scale migration to Astro, successfully achieving
+                        a 70% reduction in client-side JavaScript and optimizing initial
+                        load performance.
+                    </li>
+                    <li class:list={["highlight-item", typo.bodyText]}>
+                        <strong>Astro Maintainer</strong> Contributing to the core
+                        framework (including Vite/Rollup integration and Go-based
+                        compiler) and leading documentation internationalization to
+                        bridge the global and Japanese communities.
+                    </li>
+                    <li class:list={["highlight-item", typo.bodyText]}>
+                        <strong>Founder & Organizer, </strong>
+                        <a
+                            class:list={["highlight-link", typo.linkText]}
+                            href="https://astrojp.connpass.com/"
+                            target="_blank"
+                            rel="noreferrer">Astro Japan Community</a
+                        > Launched the official local chapter in 2025, hosting meetups
+                        and managing the community ecosystem in Japan.
+                    </li>
+                    <li class:list={["highlight-item", typo.bodyText]}>
+                        <strong
+                            >Technical Author (Figma / Design Systems)</strong
+                        >
+                        Author of the Figma-endorsed book and
+                        <a
+                            class:list={["highlight-link", typo.linkText]}
+                            href="https://zenn.dev/ignorant_kenji/books/introduction-to-design-systems"
+                            target="_blank"
+                            rel="noreferrer"
+                            ><em>Introduction to Design Systems</em></a
+                        > on Zenn — the only design book on the platform with over
+                        1,000 likes.
+                    </li>
+                </ul>
+                <h2 class:list={["about-header", typo.sectionTitle]}>Links</h2>
+                <div class="links-list">
+                    <a
+                        class:list={["link-item", typo.linkText]}
+                        href="https://github.com/jp-knj"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            class="link-icon-image"
+                            src={githubLogo.src}
+                            alt=""
+                            aria-hidden="true"
+                        />
+                        <span>GitHub</span>
+                    </a>
+                    <a
+                        class:list={["link-item", typo.linkText]}
+                        href="https://x.com/jp_knj"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            class="link-icon-image"
+                            src={xLogo.src}
+                            alt=""
+                            aria-hidden="true"
+                        />
+                        <span>X / Twitter</span>
+                    </a>
+                    <a
+                        class:list={["link-item", typo.linkText]}
+                        href="https://bsky.app/profile/jp-knj.bsky.social"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            class="link-icon-image"
+                            src={blueskyLogo.src}
+                            alt=""
+                            aria-hidden="true"
+                        />
+                        <span>Bluesky</span>
+                    </a>
+                    <a
+                        class:list={["link-item", typo.linkText]}
+                        href="https://www.linkedin.com/in/kenji-tomita-10103b210/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            class="link-icon-image"
+                            src={linkedinLogo.src}
+                            alt=""
+                            aria-hidden="true"
+                        />
+                        <span>LinkedIn</span>
+                    </a>
+                    <a
+                        class:list={["link-item", typo.linkText]}
+                        href="https://zenn.dev/ignorant_kenji"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            class="link-icon-image"
+                            src={zennLogo.src}
+                            alt=""
+                            aria-hidden="true"
+                        />
+                        <span>Zenn</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+<style>
+    .home-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        color: #ffffff;
+    }
+    .home-title .accent {
+        background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .home-desc {
+        line-height: 1.9;
+        color: var(--fg-muted);
+        max-width: 640px;
+        margin-top: 6px;
+        margin-bottom: 20px;
+    }
+    .about-on-home {
+        margin-top: 52px;
+    }
+    .about-section {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+    .about-header {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #ffffff;
+    }
+    .about-header + * + .about-header {
+        margin-top: 32px;
+    }
+    .about-header::after {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        margin-top: 8px;
+        border-radius: 2px;
+    }
+    .highlights-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .highlight-item {
+        color: var(--fg-muted);
+        line-height: 1.95;
+    }
+    .highlight-link {
+        margin-left: 8px;
+        color: var(--fg-sub);
+        transition: color 0.25s ease;
+        white-space: nowrap;
+    }
+    .highlight-link:hover {
+        color: var(--accent);
+    }
+    .links-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 18px;
+    }
+    .link-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--fg-sub);
+        transition: color 0.25s ease;
+        padding-block: 6px;
+    }
+    .link-item:hover {
+        color: var(--accent);
+    }
+    .link-icon-image {
+        width: 16px;
+        height: 16px;
+        object-fit: contain;
+        opacity: 0.85;
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
+    }
+    .link-item:hover .link-icon-image {
+        opacity: 1;
+        transform: translateY(-1px);
+    }
+    .reveal {
+        opacity: 1;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .reveal {
+            opacity: 0;
+            animation: homeFadeIn 0.2s ease-out forwards;
+        }
+        .reveal:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .reveal:nth-child(2) {
+            animation-delay: 0.03s;
+        }
+        .reveal:nth-child(3) {
+            animation-delay: 0.06s;
+        }
+        .reveal:nth-child(4) {
+            animation-delay: 0.09s;
+        }
+        .reveal:nth-child(5) {
+            animation-delay: 0.12s;
+        }
+    }
+    @keyframes homeFadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>

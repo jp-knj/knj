@@ -1,0 +1,466 @@
+---
+import "../styles/reset.css";
+import "../styles/tokens/typography.css";
+import { ClientRouter } from "astro:transitions";
+import typo from "../styles/typograhy.module.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "knj" } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const normalizePath = (path: string) => {
+  if (path.length > 1 && path.endsWith("/")) return path.slice(0, -1);
+  return path;
+};
+
+const activePath = normalizePath(currentPath);
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Works", href: "/works" },
+];
+---
+
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <ClientRouter />
+    </head>
+    <body class="portfolio-page">
+        <div class="window">
+            <header class="window-header">
+                <nav class="menu" aria-label="Primary">
+                    <ul class="menu-list" role="tablist">
+                        {
+                            navItems.map((item, i) => {
+                                const itemPath = normalizePath(item.href);
+                                const isActive = itemPath === activePath;
+                                return (
+                                    <li class="menu-list-item" role="presentation">
+                                        <a
+                                            class:list={[
+                                                "menu-item",
+                                                typo.menuText,
+                                                { active: isActive },
+                                            ]}
+                                            href={item.href}
+                                            role="tab"
+                                            tabindex={isActive ? 0 : -1}
+                                            aria-selected={isActive ? "true" : "false"}
+                                            aria-current={
+                                                isActive ? "page" : undefined
+                                            }
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </nav>
+            </header>
+
+            <div class="window-stars" aria-hidden="true">
+                <span class="star">✦</span>
+                <span class="star">✧</span>
+                <span class="star">★</span>
+                <span class="star">✦</span>
+            </div>
+
+            <main class="content">
+                <slot />
+            </main>
+
+            <footer class="window-footer">
+                <p class:list={["copyright", typo.captionText]}>
+                    © 2025 your name
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const tabs = [...document.querySelectorAll<HTMLAnchorElement>(".menu-item")];
+        const list = document.querySelector(".menu-list");
+        if (!list || tabs.length === 0) return;
+
+        list.addEventListener("keydown", (e) => {
+            const current = tabs.findIndex((t) => t === document.activeElement);
+            if (current === -1) return;
+
+            let next = -1;
+            if (e.key === "ArrowRight") next = (current + 1) % tabs.length;
+            if (e.key === "ArrowLeft") next = (current - 1 + tabs.length) % tabs.length;
+
+            if (next !== -1) {
+                e.preventDefault();
+                tabs[next].focus();
+            }
+
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                tabs[current].click();
+            }
+        });
+    });
+</script>
+
+<style>
+    :global(:root) {
+        --bg: #0f1a2e;
+        --bg-deep: #0a1222;
+        --fg: #ffffff;
+        --fg-sub: #e0ddd6;
+        --fg-muted: #c4c9d4;
+        --accent: #e8a838;
+        --accent-warm: #d4752c;
+        --tab-bg: #162240;
+        --tab-border: #253558;
+        --card-bg: #162240;
+        --shadow: rgba(0, 0, 0, 0.3);
+        --star: #e8a838;
+        --focus-ring: var(--accent);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    :global(a) {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    :global(a:hover) {
+        text-decoration: none;
+    }
+
+    :global(a:focus-visible) {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 2px;
+        border-radius: 2px;
+    }
+
+    :global(body.portfolio-page) {
+        background: var(--bg-deep);
+        color: var(--fg);
+        font-family: "DM Mono", monospace;
+        height: 100dvh;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    :global(body.portfolio-page)::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            radial-gradient(
+                1.5px 1.5px at 12% 18%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1px 1px at 28% 65%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 45% 8%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1px 1px at 62% 42%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                2px 2px at 78% 72%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1px 1px at 88% 15%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 35% 88%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1px 1px at 55% 55%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1.5px 1.5px at 92% 48%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1px 1px at 8% 78%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                2px 2px at 72% 22%,
+                var(--star) 50%,
+                transparent 50%
+            ),
+            radial-gradient(
+                1px 1px at 18% 45%,
+                var(--star) 50%,
+                transparent 50%
+            );
+        opacity: 0.35;
+        pointer-events: none;
+        animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+        0% {
+            opacity: 0.25;
+        }
+        50% {
+            opacity: 0.4;
+        }
+        100% {
+            opacity: 0.2;
+        }
+    }
+
+    .window {
+        --header-height: 48px;
+        --footer-height: 43px;
+        width: 100%;
+        max-width: 720px;
+        height: calc(100dvh - 80px);
+        height: calc(100vh - 80px);
+        background: var(--bg-deep);
+        box-shadow:
+            0 8px 48px var(--shadow),
+            0 0 80px rgba(232, 168, 56, 0.04);
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .window-header {
+        border: 1.5px solid var(--tab-border);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .menu-list {
+        display: flex;
+    }
+
+    .menu-list-item {
+        list-style: none;
+    }
+
+    .menu-item {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 48px;
+        border-radius: 20px 20px 0 0;
+        padding: 0 28px;
+        font-family: "DM Mono", monospace;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-right: 1px solid var(--tab-border);
+        background: transparent;
+        color: var(--fg);
+        opacity: 0.45;
+        position: relative;
+        transition:
+            opacity 0.25s ease,
+            background 0.25s ease;
+        text-decoration: none;
+    }
+
+    .menu-item:last-child {
+        border-right: none;
+    }
+
+    .menu-item:hover {
+        opacity: 0.75;
+    }
+
+    .menu-item:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: -2px;
+        opacity: 0.85;
+    }
+
+    .menu-item.active {
+        opacity: 1;
+        color: var(--fg);
+        background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+    }
+
+    .menu-item.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+    }
+
+    .content {
+        padding: 48px 40px 56px;
+        min-height: -webkit-fill-available;
+        min-height: fill-available;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        position: relative;
+        z-index: 2;
+        border-left: 1.5px solid var(--tab-border);
+        border-right: 1.5px solid var(--tab-border);
+    }
+
+    .content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .window-stars {
+        position: absolute;
+        top: var(--header-height);
+        right: 0;
+        bottom: var(--footer-height);
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .star {
+        position: absolute;
+        color: var(--star);
+        pointer-events: none;
+        opacity: 0;
+        animation: starPop 3s ease-in-out infinite;
+    }
+
+    .star:nth-child(1) {
+        top: 20px;
+        right: 40px;
+        font-size: 14px;
+        animation-delay: 0s;
+    }
+    .star:nth-child(2) {
+        top: 60px;
+        right: 80px;
+        font-size: 10px;
+        animation-delay: 1s;
+    }
+    .star:nth-child(3) {
+        top: 40px;
+        right: 20px;
+        font-size: 18px;
+        animation-delay: 2s;
+    }
+    .star:nth-child(4) {
+        bottom: 60px;
+        right: 50px;
+        font-size: 12px;
+        animation-delay: 0.5s;
+    }
+
+    @keyframes starPop {
+        0%,
+        100% {
+            opacity: 0;
+            transform: scale(0.5) rotate(0deg);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1) rotate(20deg);
+        }
+    }
+
+    .window-footer {
+        border-top: 1px solid var(--tab-border);
+        border-left: 1.5px solid var(--tab-border);
+        border-right: 1.5px solid var(--tab-border);
+        border-bottom: 1.5px solid var(--tab-border);
+        background: var(--tab-bg);
+    }
+
+    .copyright {
+        padding: 14px 40px;
+        color: var(--fg-muted);
+        opacity: 0.4;
+        text-align: right;
+        letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 520px) {
+        :global(body.portfolio-page) {
+            padding: 16px 8px;
+        }
+
+        .content {
+            padding: 32px 24px 40px;
+        }
+
+        .window {
+            --header-height: 44px;
+            height: calc(100dvh - 32px);
+            height: calc(100vh - 32px);
+        }
+
+        .menu-item {
+            flex: 1;
+            height: 44px;
+            padding: 0 12px;
+        }
+
+        .copyright {
+            padding: 12px 24px 14px;
+        }
+    }
+</style>
