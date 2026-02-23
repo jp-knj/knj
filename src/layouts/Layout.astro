@@ -22,7 +22,7 @@ const activePath = normalizePath(currentPath);
 const base = import.meta.env.BASE_URL;
 const navItems = [
   { label: "Home", href: `${base}` },
-  { label: "Works", href: `${base}works` },
+  { label: "Works", href: `${base}/works` },
 ];
 ---
 
@@ -31,7 +31,11 @@ const navItems = [
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href={`${import.meta.env.BASE_URL}favicon.svg`}
+        />
         <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +57,10 @@ const navItems = [
                                 const itemPath = normalizePath(item.href);
                                 const isActive = itemPath === activePath;
                                 return (
-                                    <li class="menu-list-item" role="presentation">
+                                    <li
+                                        class="menu-list-item"
+                                        role="presentation"
+                                    >
                                         <a
                                             class:list={[
                                                 "menu-item",
@@ -63,7 +70,9 @@ const navItems = [
                                             href={item.href}
                                             role="tab"
                                             tabindex={isActive ? 0 : -1}
-                                            aria-selected={isActive ? "true" : "false"}
+                                            aria-selected={
+                                                isActive ? "true" : "false"
+                                            }
                                             aria-current={
                                                 isActive ? "page" : undefined
                                             }
@@ -90,9 +99,7 @@ const navItems = [
             </main>
 
             <footer class="window-footer">
-                <p class:list={["copyright", typo.captionText]}>
-                    © 2025 your name
-                </p>
+                <p class:list={["copyright", typo.captionText]}>© 2026 kenji</p>
             </footer>
         </div>
     </body>
@@ -100,7 +107,9 @@ const navItems = [
 
 <script>
     document.addEventListener("astro:page-load", () => {
-        const tabs = [...document.querySelectorAll<HTMLAnchorElement>(".menu-item")];
+        const tabs = [
+            ...document.querySelectorAll<HTMLAnchorElement>(".menu-item"),
+        ];
         const list = document.querySelector(".menu-list");
         if (!list || tabs.length === 0) return;
 
@@ -110,7 +119,8 @@ const navItems = [
 
             let next = -1;
             if (e.key === "ArrowRight") next = (current + 1) % tabs.length;
-            if (e.key === "ArrowLeft") next = (current - 1 + tabs.length) % tabs.length;
+            if (e.key === "ArrowLeft")
+                next = (current - 1 + tabs.length) % tabs.length;
 
             if (next !== -1) {
                 e.preventDefault();
