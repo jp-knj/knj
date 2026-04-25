@@ -1,0 +1,15 @@
+:root {
+  --background: #f3eee2;
+  --background-deep: #ebe4d4;
+  --foreground: #141414;
+  --foreground-secondary: #2a2a2a;
+  --foreground-muted: #5e5852;
+  --accent: #a8431a;
+  --accent-warm: #d4752c;
+  --tab-background: #ebe4d4;
+  --tab-border: #cdc4ad;
+  --card-background: #ebe4d4;
+  --shadow: rgb(20 14 0 / 8%);
+  --star: #a8431a;
+  --focus-ring: var(--accent);
+}

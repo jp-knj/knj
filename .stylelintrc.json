@@ -1,0 +1,58 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-use-logical"],
+  "rules": {
+    "csstools/use-logical": ["always", { "except": ["transform"] }],
+    "unit-disallowed-list": [
+      ["px"],
+      {
+        "ignoreProperties": {
+          "px": [
+            "border",
+            "border-top",
+            "border-right",
+            "border-bottom",
+            "border-left",
+            "border-block",
+            "border-block-start",
+            "border-block-end",
+            "border-inline",
+            "border-inline-start",
+            "border-inline-end",
+            "border-width",
+            "outline",
+            "outline-width",
+            "box-shadow",
+            "text-shadow"
+          ]
+        }
+      }
+    ],
+    "selector-class-pattern": [
+      "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:__[a-z0-9]+(?:-[a-z0-9]+)*)?(?:--[a-z0-9]+(?:-[a-z0-9]+)*)?$",
+      {
+        "message": "Use kebab-case (BEM-friendly: block__element--modifier)",
+        "resolveNestedSelectors": true
+      }
+    ],
+    "custom-property-pattern": [
+      "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      {
+        "message": "Custom properties should be kebab-case (e.g. --foreground-muted)"
+      }
+    ],
+    "no-descending-specificity": null
+  },
+  "overrides": [
+    {
+      "files": ["**/*.astro"],
+      "customSyntax": "postcss-html"
+    },
+    {
+      "files": ["**/*.module.css"],
+      "rules": {
+        "selector-class-pattern": null
+      }
+    }
+  ]
+}

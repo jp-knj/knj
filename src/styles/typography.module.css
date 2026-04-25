@@ -1,0 +1,43 @@
+.menuText {
+    font-size: var(--font-size-20);
+}
+
+.captionText {
+    font-size: var(--font-size-16);
+}
+
+.heroTitle {
+    font-size: var(--font-size-72);
+}
+
+.bodyText {
+    font-size: var(--font-size-24);
+}
+
+.tagText {
+    font-size: var(--font-size-18);
+}
+
+.thumbText {
+    font-size: var(--font-size-72);
+}
+
+.cardTitle {
+    font-size: var(--font-size-24);
+}
+
+.metaText {
+    font-size: var(--font-size-18);
+}
+
+.sectionTitle {
+    font-size: var(--font-size-48);
+}
+
+.linkText {
+    font-size: var(--font-size-22);
+}
+
+.linkArrow {
+    font-size: var(--font-size-24);
+}
