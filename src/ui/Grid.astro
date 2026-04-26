@@ -14,7 +14,9 @@ const { as: Tag = "div" } = Astro.props;
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--grid-columns), 1fr);
+    grid-auto-flow: dense;
     gap: var(--grid-row-gap) var(--grid-gutter);
     position: relative;
+    padding-block-end: var(--space-128);
   }
 </style>
