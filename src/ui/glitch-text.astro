@@ -1,0 +1,210 @@
+---
+/**
+ * GlitchText
+ *
+ * Two duplicated layers (cyan + warm orange) are composited via mix-blend-mode:
+ * multiply, which darkens overlapping pixels — on a light/cream surface this lets
+ * each channel show as its own tinted color where the layers don't overlap and as
+ * a deeper mixed tone where they do. clip-path: inset() carves horizontal slices
+ * per keyframe so the glitch reads as scanline displacement rather than uniform
+ * shake. step-end timing keeps it digital — no eased interpolation.
+ */
+interface Props {
+    text: string;
+    as?: "h1" | "h2" | "span";
+    intervalRange?: [number, number];
+    pointerReactive?: boolean;
+    scale?: number;
+}
+
+const {
+    text,
+    as: Tag = "h1",
+    intervalRange = [2, 8],
+    pointerReactive = false,
+    scale = 1,
+} = Astro.props;
+
+// intervalRange = [orange (frequent), cyan (rare)] in seconds.
+const [orangeDuration, cyanDuration] = intervalRange;
+const styleVars = `--cyan-duration: ${cyanDuration}s; --orange-duration: ${orangeDuration}s; --glitch-scale: ${scale};`;
+
+const pointerScript = `(() => {
+    const els = document.querySelectorAll(".glitch--reactive");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (els.length === 0 || reduced.matches) return;
+    let raf = 0;
+    window.addEventListener("pointermove", (event) => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+            for (const el of els) {
+                if (!(el instanceof HTMLElement)) continue;
+                const rect = el.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dx = event.clientX - cx;
+                const dy = event.clientY - cy;
+                const distance = Math.hypot(dx, dy);
+                const intensity = Math.max(0, Math.min(1, 1 - distance / 200));
+                el.style.setProperty("--pointer-offset", intensity * 0.5 + "rem");
+            }
+        });
+    });
+})();`;
+---
+
+<Tag
+    class:list={["glitch", { "glitch--reactive": pointerReactive }]}
+    data-text={text}
+    style={styleVars}>{text}</Tag
+>
+
+{pointerReactive && <script is:inline set:html={pointerScript} />}
+
+<style>
+    .glitch {
+        position: relative;
+        display: inline-block;
+        color: inherit;
+        filter: url("#glitch-wave");
+    }
+
+    .glitch::before,
+    .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inline-size: 100%;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+    }
+
+    .glitch::before {
+        color: var(--glitch-cyan, #00e0ff);
+        animation: glitch-cyan var(--cyan-duration, 4s) step-end infinite;
+    }
+
+    .glitch::after {
+        color: var(--glitch-orange, #ff7a1a);
+        animation: glitch-orange var(--orange-duration, 5s) step-end infinite;
+    }
+
+    .glitch--reactive::before {
+        translate: calc(-1 * var(--pointer-offset, 0)) 0;
+    }
+
+    .glitch--reactive::after {
+        translate: var(--pointer-offset, 0) 0;
+    }
+
+    @keyframes glitch-cyan {
+        0%,
+        10% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+
+        11% {
+            transform: translateX(calc(-0.125rem * var(--glitch-scale, 1)));
+            clip-path: inset(20% 0 72% 0);
+        }
+
+        12%,
+        37% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+
+        38% {
+            transform: translateX(calc(-0.1875rem * var(--glitch-scale, 1)));
+            clip-path: inset(55% 0 35% 0);
+        }
+
+        39% {
+            transform: translateX(calc(-0.0625rem * var(--glitch-scale, 1)));
+            clip-path: inset(45% 0 47% 0);
+        }
+
+        40%,
+        70% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+
+        71% {
+            transform: translateX(calc(-0.125rem * var(--glitch-scale, 1)));
+            clip-path: inset(32% 0 60% 0);
+        }
+
+        72%,
+        100% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+    }
+
+    @keyframes glitch-orange {
+        0%,
+        17% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+
+        18% {
+            transform: translateX(calc(0.0625rem * var(--glitch-scale, 1)));
+            clip-path: inset(48% 0 45% 0);
+        }
+
+        19%,
+        51% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+
+        52% {
+            transform: translateX(calc(0.25rem * var(--glitch-scale, 1)));
+            clip-path: inset(12% 0 80% 0);
+        }
+
+        53%,
+        82% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+
+        83% {
+            transform: translateX(calc(0.1875rem * var(--glitch-scale, 1)));
+            clip-path: inset(72% 0 20% 0);
+        }
+
+        84% {
+            transform: translateX(calc(0.125rem * var(--glitch-scale, 1)));
+            clip-path: inset(64% 0 30% 0);
+        }
+
+        85%,
+        100% {
+            transform: translateX(0);
+            clip-path: inset(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .glitch {
+            filter: none;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            display: none;
+        }
+    }
+
+    @media (forced-colors: active) {
+        .glitch::before,
+        .glitch::after {
+            display: none;
+        }
+    }
+</style>
