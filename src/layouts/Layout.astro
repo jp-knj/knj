@@ -2,6 +2,7 @@
 import "../styles/reset.css";
 import "../styles/tokens/colors.css";
 import "../styles/tokens/typography.css";
+import "../styles/tokens/spacing.css";
 import "../styles/tokens/grid.css";
 import { ClientRouter } from "astro:transitions";
 
@@ -9,7 +10,7 @@ interface Props {
     title?: string;
 }
 
-const { title = "knj" } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -34,14 +35,35 @@ const { title = "knj" } = Astro.props;
         <ClientRouter />
     </head>
     <body>
-        <header class="site-header">
-            <div class="site-header-grid">
-                <div class="site-header-block">
-                    <a href={import.meta.env.BASE_URL} class="site-mark">knj</a>
+        <svg class="filter-defs" aria-hidden="true">
+            <defs>
+                <filter id="glitch-wave">
+                    <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency="0.012 0.02"
+                        numOctaves="2"
+                        seed="3"
+                    >
+                        <animate
+                            attributeName="seed"
+                            from="3"
+                            to="100"
+                            dur="24s"
+                            repeatCount="indefinite"
+                        />
+                    </feTurbulence>
+                    <feDisplacementMap in="SourceGraphic" scale="4" />
+                </filter>
+            </defs>
+        </svg>
+        <header class="header">
+            <div class="header-grid">
+                <div class="header-block">
+                    <a href={import.meta.env.BASE_URL} class="mark">knj</a>
                 </div>
             </div>
         </header>
-        <main class="editorial-main">
+        <main class="main">
             <slot />
         </main>
     </body>
@@ -57,17 +79,23 @@ const { title = "knj" } = Astro.props;
         color: var(--foreground);
         font-family: "DM Mono", monospace;
         min-block-size: 100dvh;
-        margin: 0;
         container-type: inline-size;
     }
 
-    .site-header {
+    .filter-defs {
+        position: absolute;
+        inline-size: 0;
+        block-size: 0;
+        pointer-events: none;
+    }
+
+    .header {
         position: sticky;
         inset-block-start: 0;
         z-index: 10;
     }
 
-    .site-header-grid {
+    .header-grid {
         max-inline-size: 55rem;
         margin-inline: auto;
         display: grid;
@@ -75,7 +103,7 @@ const { title = "knj" } = Astro.props;
         column-gap: var(--grid-gutter);
     }
 
-    .site-header-block {
+    .header-block {
         grid-column: 1 / span 2;
         background: var(--foreground);
         padding: clamp(0.875rem, 2vw, 1.25rem);
@@ -84,12 +112,12 @@ const { title = "knj" } = Astro.props;
     }
 
     @container (width <= 26.25rem) {
-        .site-header-block {
+        .header-block {
             grid-column: 1 / -1;
         }
     }
 
-    .site-mark {
+    .mark {
         font-family: "DM Mono", monospace;
         font-size: var(--font-size-18);
         color: var(--background);
@@ -97,8 +125,16 @@ const { title = "knj" } = Astro.props;
         letter-spacing: 0.05em;
     }
 
-    .editorial-main {
+    .main {
         max-inline-size: 55rem;
         margin-inline: auto;
+        border-block-start: 1px solid var(--grid-rule);
+        border-block-end: 1px solid var(--grid-rule);
+    }
+
+    @container (width <= 55rem) {
+        .main {
+            padding-inline: 1.25rem;
+        }
     }
 </style>

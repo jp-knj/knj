@@ -3,60 +3,133 @@ import Layout from "../layouts/Layout.astro";
 import Grid from "../ui/Grid.astro";
 import GridRules from "../ui/GridRules.astro";
 import Section from "../ui/Section.astro";
-import Row from "../ui/Row.astro";
 import Cell from "../ui/Cell.astro";
-import typography from "../styles/typography.module.css";
+import GlitchText from "../ui/glitch-text.astro";
+import { writingAndTalks } from "../data/writing-and-talks";
 import githubLogo from "../images/github-logo.svg?raw";
 import linkedinLogo from "../images/linkedin-logo.svg?raw";
 import xLogo from "../images/x-logo.svg?raw";
 import blueskyLogo from "../images/bluesky-logo.svg?raw";
-
-const timeline = [
-    {
-        number: "01",
-        year: "2026",
-        month: "Feb",
-        title: "Hosted the first official Astro Japan Meetup",
-    },
-    {
-        number: "02",
-        year: "2025",
-        month: "Nov",
-        title: "Founded Astro Japan Community as the official chapter",
-    },
-    {
-        number: "03",
-        year: "2025",
-        month: "Oct",
-        title: "Appointed as an official Maintainer for Astro",
-    },
-    {
-        number: "04",
-        year: "2024",
-        month: "Sep",
-        title: "Joined Plaid, Inc. and led Astro migration",
-    },
-];
 ---
 
 <Layout title="Portfolio | Kenji">
     <Grid>
         <GridRules />
         <Section>
-            <Cell start={1} span={5} smallSpan={4}>
-                <h1 class:list={["introduction-title", typography.heroTitle]}>
-                    Make the <span class="introduction-title__highlight">Web</span> quieter
+            <Cell start={1} span={7} smallSpan={4}>
+                <h1 class="introduction-title">
+                    <GlitchText
+                        text="Make"
+                        as="span"
+                        intervalRange={[5, 14]}
+                        scale={1.3}
+                    /> the <span class="highlight">Web</span> <GlitchText
+                        text="quieter"
+                        as="span"
+                        intervalRange={[8, 20]}
+                        scale={1.3}
+                    />
                 </h1>
-                <p class:list={["introduction-role", typography.linkText]}>I'm Kenji　Wu</p>
+                <p class="description">
+                    I'm Kenji <img
+                        class="avatar"
+                        src="https://github.com/jp-knj.png"
+                        alt=""
+                        width="40"
+                        height="40"
+                    />, a Design Engineer at <a
+                        href="https://plaid.co.jp/en/"
+                        target="_blank"
+                        rel="noopener noreferrer">Plaid</a
+                    > <img
+                        class="avatar"
+                        src="https://github.com/plaidev.png"
+                        alt=""
+                        width="40"
+                        height="40"
+                    />. I work on the seams between design and the web — design
+                    systems, performance, and front-end tooling.
+                </p>
             </Cell>
-            <Cell start={7} span={2} smallStart={1} smallSpan={4}>
+        </Section>
+
+        <Section border="solid-orange">
+            <Cell start={1} span={7} smallSpan={4}>
+                <h2 class="lede">
+                    <span class="highlight"
+                        ><GlitchText
+                            text="Open source"
+                            as="span"
+                            intervalRange={[5, 14]}
+                        /></span
+                    >　work, focused on
+                    <span class="highlight"
+                        ><GlitchText
+                            text="Web."
+                            as="span"
+                            intervalRange={[4, 14]}
+                        /></span
+                    >
+                </h2>
+            </Cell>
+            <Cell start={3} span={7} smallSpan={4}>
+                <p class="body">
+                    Maintainer for <a
+                        href="https://github.com/withastro/astro"
+                        target="_blank"
+                        rel="noopener noreferrer">Astro</a
+                    > <img
+                        class="avatar"
+                        src="https://github.com/withastro.png"
+                        alt=""
+                        width="40"
+                        height="40"
+                    />, mostly the compiler and internationalization.
+                </p>
+                <p class="body">
+                    Organize <a
+                        href="https://astrojp.connpass.com/"
+                        target="_blank"
+                        rel="noopener noreferrer">Astro Japan</a
+                    > <img
+                        class="avatar"
+                        src="https://media.connpass.com/thumbs/c3/e0/c3e0bd352efdca77cc78b5b8ae738bf6.png"
+                        alt=""
+                        width="162"
+                        height="110"
+                    />, a local chapter that hosts in-person meetups in Tokyo.
+                </p>
+            </Cell>
+        </Section>
+
+        <Section border="solid" start={3} span={6} smallSpan={4}>
+            <Cell start={1} span={6} smallSpan={4}>
+                <div class="how-i-work">
+                    <h2 class="lede">
+                        How <GlitchText
+                            text="I"
+                            as="span"
+                            intervalRange={[4, 11]}
+                        /> <span class="highlight">work</span>.
+                    </h2>
+                    <p class="body">
+                        Read before writing, fix causes over symptoms, and
+                        ship small things slowly. Open source is where I keep
+                        practicing this.
+                    </p>
+                </div>
+            </Cell>
+        </Section>
+
+        <Section start={1} span={2} smallSpan={4}>
+            <Cell as="footer" start={1} span={2} smallSpan={4}>
                 <ul class="introduction-links">
                     <li>
                         <a
                             href="https://github.com/jp-knj"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class:list={["introduction-link", typography.metaText]}
+                            class="introduction-link"
                         >
                             <Fragment set:html={githubLogo} />
                             <span>GitHub</span>
@@ -67,7 +140,7 @@ const timeline = [
                             href="https://www.linkedin.com/in/kenji-tomita-10103b210/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class:list={["introduction-link", typography.metaText]}
+                            class="introduction-link"
                         >
                             <Fragment set:html={linkedinLogo} />
                             <span>LinkedIn</span>
@@ -78,7 +151,7 @@ const timeline = [
                             href="https://x.com/jp_knj"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class:list={["introduction-link", typography.metaText]}
+                            class="introduction-link"
                         >
                             <Fragment set:html={xLogo} />
                             <span>Twitter</span>
@@ -89,7 +162,7 @@ const timeline = [
                             href="https://bsky.app/profile/jp-knj.bsky.social"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class:list={["introduction-link", typography.metaText]}
+                            class="introduction-link"
                         >
                             <Fragment set:html={blueskyLogo} />
                             <span>Bluesky</span>
@@ -101,53 +174,58 @@ const timeline = [
 
         <Section>
             <Cell start={1} span={3} smallSpan={4}>
-                <h2 class:list={["lede", typography.bodyText]}>
-                    Open source work, focused on Astro.
+                <h2 class="lede">
+                    <GlitchText
+                        text="Writing"
+                        as="span"
+                        intervalRange={[5, 16]}
+                    /> &amp; <span class="highlight">Talks</span>.
                 </h2>
             </Cell>
             <Cell start={5} span={4} smallSpan={4}>
-                <p class:list={["body", typography.linkText]}>
-                    Maintainer for Astro, mostly the compiler and
-                    internationalization.
-                </p>
-                <p class:list={["body", typography.linkText]}>
-                    Organize Astro Japan, a local chapter that hosts in-person
-                    meetups in Tokyo.
-                </p>
+                <ul class="entries">
+                    {
+                        writingAndTalks.filter((entry) => entry.featured).map((entry) => (
+                            <li class="entry">
+                                <span class="entry-meta">
+                                    {entry.year} · {entry.month} ·{" "}
+                                    {entry.type}
+                                </span>
+                                <a
+                                    class="entry-link"
+                                    href={entry.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {entry.title}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+                <a
+                    class="view-all"
+                    href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/writing-and-talks`}
+                >
+                    All writing &amp; talks →
+                </a>
             </Cell>
         </Section>
 
-        {
-            timeline.map((item) => (
-                <Row>
-                    <Cell start={1} span={1} smallSpan={1} />
-                    <Cell start={2} span={5} smallStart={2} smallSpan={3}>
-                        <span class:list={["entry-title", typography.cardTitle]}>
-                            {item.title}
-                        </span>
-                    </Cell>
-                    <Cell start={7} span={2} smallSpan={4}>
-                        <span class:list={["entry-year", typography.metaText]}>
-                            {item.month} · {item.year}
-                        </span>
-                    </Cell>
-                </Row>
-            ))
-        }
     </Grid>
 </Layout>
 
 <style>
     .introduction-title {
         font-family: Syne, sans-serif;
+        font-size: var(--font-size-144);
         font-weight: 700;
         line-height: 0.95;
         color: var(--foreground);
-        margin: 0;
         letter-spacing: -0.02em;
     }
 
-    .introduction-title__highlight {
+    .highlight {
         background: linear-gradient(
             to top,
             transparent 0,
@@ -160,23 +238,28 @@ const timeline = [
         padding: 0 0.04em;
     }
 
-    .introduction-role {
-        font-family: Syne, sans-serif;
-        font-weight: 400;
-        color: var(--foreground-secondary);
-        line-height: 1.15;
-        margin: clamp(0.75rem, 1.4vw, 1.25rem) 0 0;
-        letter-spacing: -0.01em;
+    .description {
+        font-size: var(--font-size-22);
+        color: var(--foreground-muted);
+        line-height: 1.6;
+        margin-block-start: var(--space-64);
+    }
+
+    .avatar {
+        inline-size: 2rem;
+        block-size: 2rem;
+        border-radius: 50%;
+        object-fit: cover;
+        vertical-align: -0.4em;
     }
 
     .introduction-links {
         list-style: none;
         padding: 0;
-        margin: 0;
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
-        gap: clamp(0.75rem, 0.8vw, 1rem);
+        align-items: flex-start;
+        gap: var(--space-16);
         color: var(--foreground-muted);
     }
 
@@ -184,6 +267,7 @@ const timeline = [
         display: inline-flex;
         align-items: center;
         gap: 0.625rem;
+        font-size: var(--font-size-18);
         color: inherit;
         text-decoration: none;
         letter-spacing: 0.08em;
@@ -196,11 +280,17 @@ const timeline = [
         color: var(--foreground);
     }
 
+    .how-i-work {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-24);
+    }
+
     .lede {
+        font-size: var(--font-size-48);
         color: var(--foreground-secondary);
         font-weight: 600;
         line-height: 1.4;
-        margin: 0;
     }
 
     .lede::before {
@@ -215,50 +305,98 @@ const timeline = [
     }
 
     .body {
+        font-size: var(--font-size-22);
         color: var(--foreground-muted);
         line-height: 1.7;
-        margin: 0 0 0.75rem;
     }
 
-    .body:last-child {
-        margin-block-end: 0;
+    .body + .body {
+        margin-block-start: var(--space-16);
     }
 
-    .section-note {
-        color: var(--foreground-muted);
-        letter-spacing: 0.08em;
-        opacity: 0.7;
-        margin: 0;
+    .entries {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-32);
     }
 
-    .number {
-        color: var(--accent);
+    .entry {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-8);
+    }
+
+    .entry-meta {
         font-family: "DM Mono", monospace;
-        letter-spacing: 0.1em;
-    }
-
-    .entry-title {
-        color: var(--foreground-secondary);
-        font-weight: 600;
-        line-height: 1.45;
-    }
-
-    .entry-year {
+        font-size: var(--font-size-18);
         color: var(--foreground-muted);
-        text-align: end;
-        display: block;
         letter-spacing: 0.08em;
+        text-transform: uppercase;
     }
 
-    @container (width <= 40rem) {
-        .introduction-links {
-            align-items: flex-start;
-            margin-block-start: 1.25rem;
-        }
+    .entry-link {
+        font-size: var(--font-size-22);
+        color: var(--foreground-secondary);
+        line-height: 1.4;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
 
-        .entry-year {
-            text-align: start;
-            margin-block-start: 0.375rem;
-        }
+    .entry-link:hover,
+    .entry-link:focus-visible {
+        color: var(--accent);
+    }
+
+    .entry-link:focus-visible {
+        outline: 0.125rem solid var(--accent);
+        outline-offset: 0.125rem;
+    }
+
+    .view-all {
+        display: inline-block;
+        margin-block-start: var(--space-32);
+        font-family: "DM Mono", monospace;
+        font-size: var(--font-size-18);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .body a,
+    .description a,
+    .view-all {
+        color: var(--accent);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .body a::before,
+    .description a::before,
+    .view-all::before {
+        content: "[";
+    }
+
+    .body a::after,
+    .description a::after,
+    .view-all::after {
+        content: "]";
+    }
+
+    .body a:hover,
+    .body a:focus-visible,
+    .description a:hover,
+    .description a:focus-visible,
+    .view-all:hover,
+    .view-all:focus-visible {
+        color: var(--accent-warm);
+    }
+
+    .body a:focus-visible,
+    .description a:focus-visible,
+    .introduction-link:focus-visible,
+    .view-all:focus-visible {
+        outline: 0.125rem solid var(--accent);
+        outline-offset: 0.125rem;
     }
 </style>
