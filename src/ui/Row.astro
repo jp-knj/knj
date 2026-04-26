@@ -1,26 +1,27 @@
 ---
+
 ---
 
 <section>
-  <slot />
+    <slot />
 </section>
 
 <style>
-  section {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: subgrid;
-    column-gap: inherit;
-    row-gap: clamp(0.5rem, 1vw, 0.875rem);
-    position: relative;
-    z-index: 1;
-    border-block-start: 1px solid var(--grid-row-separator);
-    padding-block: var(--grid-padding-y);
-  }
-
-  @supports not (grid-template-columns: subgrid) {
     section {
-      display: contents;
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: subgrid;
+        column-gap: inherit;
+        row-gap: clamp(0.5rem, 1vw, 0.875rem);
+        position: relative;
+        z-index: 1;
+        border-block-start: 1px solid var(--grid-row-separator);
+        padding-block: var(--grid-padding-y);
     }
-  }
+
+    @supports not (grid-template-columns: subgrid) {
+        section {
+            display: contents;
+        }
+    }
 </style>
