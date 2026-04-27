@@ -1,0 +1,72 @@
+---
+interface Props {
+    start?: number;
+    span?: number;
+    smallStart?: number;
+    smallSpan?: number;
+    rowStart?: number;
+    rowSpan?: number;
+    as?: string;
+    class?: string;
+}
+
+const {
+    start,
+    span = 1,
+    smallStart,
+    smallSpan,
+    rowStart,
+    rowSpan,
+    as: Tag = "div",
+    class: className,
+} = Astro.props;
+
+const column = start != null ? `${start} / span ${span}` : `span ${span}`;
+const columnSmall =
+    smallSpan != null
+        ? smallStart != null
+            ? `${smallStart} / span ${smallSpan}`
+            : `span ${smallSpan}`
+        : null;
+
+let row: string | null = null;
+if (rowSpan != null) {
+    row =
+        rowStart != null ? `${rowStart} / span ${rowSpan}` : `span ${rowSpan}`;
+} else if (rowStart != null) {
+    row = `${rowStart}`;
+}
+
+const styleParts = [`--column: ${column}`];
+if (columnSmall) styleParts.push(`--column-small: ${columnSmall}`);
+if (row) styleParts.push(`--row: ${row}`);
+const style = styleParts.join("; ");
+---
+
+<Tag class:list={["cell", className]} style={style}>
+    <slot />
+</Tag>
+
+<style>
+    .cell {
+        grid-column: var(--column);
+        grid-row: var(--row, auto);
+        min-inline-size: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    @container (width <= 40rem) {
+        .cell {
+            grid-column: var(--column-small, 1 / -1);
+            grid-row: auto;
+        }
+    }
+
+    @container (width <= 26.25rem) {
+        .cell {
+            grid-column: 1 / -1;
+            grid-row: auto;
+        }
+    }
+</style>

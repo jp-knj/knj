@@ -1,0 +1,48 @@
+---
+const COLUMNS = 8;
+const lines = Array.from(
+  { length: COLUMNS + 1 },
+  (_, index) => (index / COLUMNS) * 100,
+);
+---
+
+<div class="rules" aria-hidden="true">
+  {
+    lines.map((percent) => (
+      <span
+        style={`left: ${percent}%;${percent === 100 ? " transform: translateX(-1px);" : ""}`}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .rules {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .rules > span {
+    position: absolute;
+    inset-block: 0;
+    inline-size: 0.0625rem;
+    background: var(--grid-rule);
+  }
+
+  @container (width <= 40rem) {
+    .rules > span:nth-child(2),
+    .rules > span:nth-child(4),
+    .rules > span:nth-child(6),
+    .rules > span:nth-child(8) {
+      display: none;
+    }
+  }
+
+  @container (width <= 26.25rem) {
+    .rules {
+      opacity: 0;
+    }
+  }
+</style>

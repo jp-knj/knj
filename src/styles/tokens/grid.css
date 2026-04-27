@@ -1,0 +1,24 @@
+:root {
+    --grid-columns: 8;
+    --grid-gutter: clamp(0.75rem, 1.2vw, 1.25rem);
+    --grid-row-gap: var(--space-160);
+    --grid-rule: rgb(20 20 20 / 10%);
+    --grid-rule-major: rgb(20 20 20 / 40%);
+    --grid-row-separator: rgb(20 20 20 / 14%);
+    --grid-padding-y: var(--space-32);
+    --grid-padding-x: clamp(2.25rem, 5vw, 3.375rem);
+}
+
+@container (width <= 40rem) {
+    .grid,
+    .header-grid {
+        --grid-columns: 4;
+    }
+}
+
+@container (width <= 26.25rem) {
+    .grid,
+    .sheader-grid {
+        --grid-columns: 1;
+    }
+}
