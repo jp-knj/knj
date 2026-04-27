@@ -28,40 +28,13 @@ const {
 // intervalRange = [orange (frequent), cyan (rare)] in seconds.
 const [orangeDuration, cyanDuration] = intervalRange;
 const styleVars = `--cyan-duration: ${cyanDuration}s; --orange-duration: ${orangeDuration}s; --glitch-scale: ${scale};`;
-
-const pointerScript = `(() => {
-    const els = document.querySelectorAll(".glitch--reactive");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (els.length === 0 || reduced.matches) return;
-    let raf = 0;
-    window.addEventListener("pointermove", (event) => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-            for (const el of els) {
-                if (!(el instanceof HTMLElement)) continue;
-                const rect = el.getBoundingClientRect();
-                const cx = rect.left + rect.width / 2;
-                const cy = rect.top + rect.height / 2;
-                const dx = event.clientX - cx;
-                const dy = event.clientY - cy;
-                const distance = Math.hypot(dx, dy);
-                const intensity = Math.max(0, Math.min(1, 1 - distance / 200));
-                el.style.setProperty("--pointer-offset", intensity * 0.5 + "rem");
-            }
-        });
-    });
-})();`;
 ---
 
 <Tag
     class:list={["glitch", { "glitch--reactive": pointerReactive }]}
     data-text={text}
-    style={styleVars}>{text}</Tag
->
-
-{pointerReactive && <script is:inline set:html={pointerScript} />}
-
-<style>
+    style={styleVars}
+>{text}</Tag><style>
     .glitch {
         position: relative;
         display: inline-block;
