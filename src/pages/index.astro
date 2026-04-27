@@ -22,12 +22,13 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
                         text="Make"
                         as="span"
                         intervalRange={[5, 14]}
-                        scale={1.3}
-                    /> the <span class="highlight">Web</span> <GlitchText
+                        scale={1.4}
+                    /> the <span class="highlight">Web</span>
+                    <GlitchText
                         text="quieter"
                         as="span"
                         intervalRange={[8, 20]}
-                        scale={1.3}
+                        scale={1.4}
                     />
                 </h1>
                 <p class="description">
@@ -41,7 +42,8 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
                         href="https://plaid.co.jp/en/"
                         target="_blank"
                         rel="noopener noreferrer">Plaid</a
-                    > <img
+                    >
+                    <img
                         class="avatar"
                         src="https://github.com/plaidev.png"
                         alt=""
@@ -56,20 +58,18 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
         <Section border="solid-orange">
             <Cell start={1} span={7} smallSpan={4}>
                 <h2 class="lede">
-                    <span class="highlight"
-                        ><GlitchText
+                    <span class="highlight"><GlitchText
                             text="Open source"
                             as="span"
-                            intervalRange={[5, 14]}
-                        /></span
-                    >　work, focused on
-                    <span class="highlight"
+                            intervalRange={[1, 4]}
+                            scale={1.4}
+                        /></span> work, focused on <span class="highlight"
                         ><GlitchText
-                            text="Web."
+                            text="Web"
                             as="span"
-                            intervalRange={[4, 14]}
-                        /></span
-                    >
+                            intervalRange={[1, 4]}
+                            scale={1.4}
+                        /></span>.
                 </h2>
             </Cell>
             <Cell start={3} span={7} smallSpan={4}>
@@ -78,7 +78,8 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
                         href="https://github.com/withastro/astro"
                         target="_blank"
                         rel="noopener noreferrer">Astro</a
-                    > <img
+                    >
+                    <img
                         class="avatar"
                         src="https://github.com/withastro.png"
                         alt=""
@@ -91,7 +92,8 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
                         href="https://astrojp.connpass.com/"
                         target="_blank"
                         rel="noopener noreferrer">Astro Japan</a
-                    > <img
+                    >
+                    <img
                         class="avatar"
                         src="https://media.connpass.com/thumbs/c3/e0/c3e0bd352efdca77cc78b5b8ae738bf6.png"
                         alt=""
@@ -102,27 +104,29 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
             </Cell>
         </Section>
 
-        <Section border="solid" start={3} span={6} smallSpan={4}>
-            <Cell start={1} span={6} smallSpan={4}>
+        <Section border="solid" start={3} span={6} smallStart={2} smallSpan={3}>
+            <Cell start={1} span={6} smallSpan={3}>
                 <div class="how-i-work">
                     <h2 class="lede">
                         How <GlitchText
                             text="I"
                             as="span"
-                            intervalRange={[4, 11]}
-                        /> <span class="highlight">work</span>.
+                            intervalRange={[1, 3]}
+                            scale={1.4}
+                        />
+                        <span class="highlight">work</span>.
                     </h2>
                     <p class="body">
-                        Read before writing, fix causes over symptoms, and
-                        ship small things slowly. Open source is where I keep
+                        Read before writing, fix causes over symptoms, and ship
+                        small things slowly. Open source is where I keep
                         practicing this.
                     </p>
                 </div>
             </Cell>
         </Section>
 
-        <Section start={1} span={2} smallSpan={4}>
-            <Cell as="footer" start={1} span={2} smallSpan={4}>
+        <Section start={1} span={2} smallSpan={1}>
+            <Cell as="footer" start={1} span={2} smallSpan={1}>
                 <ul class="introduction-links">
                     <li>
                         <a
@@ -178,29 +182,32 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
                     <GlitchText
                         text="Writing"
                         as="span"
-                        intervalRange={[5, 16]}
+                        intervalRange={[2, 5]}
+                        scale={1.4}
                     /> &amp; <span class="highlight">Talks</span>.
                 </h2>
             </Cell>
             <Cell start={5} span={4} smallSpan={4}>
                 <ul class="entries">
                     {
-                        writingAndTalks.filter((entry) => entry.featured).map((entry) => (
-                            <li class="entry">
-                                <span class="entry-meta">
-                                    {entry.year} · {entry.month} ·{" "}
-                                    {entry.type}
-                                </span>
-                                <a
-                                    class="entry-link"
-                                    href={entry.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {entry.title}
-                                </a>
-                            </li>
-                        ))
+                        writingAndTalks
+                            .filter((entry) => entry.featured)
+                            .map((entry) => (
+                                <li class="entry">
+                                    <span class="entry-meta">
+                                        {entry.year} · {entry.month} ·{" "}
+                                        {entry.type}
+                                    </span>
+                                    <a
+                                        class="entry-link"
+                                        href={entry.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {entry.title}
+                                    </a>
+                                </li>
+                            ))
                     }
                 </ul>
                 <a
@@ -211,7 +218,6 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
                 </a>
             </Cell>
         </Section>
-
     </Grid>
 </Layout>
 
@@ -278,6 +284,12 @@ import blueskyLogo from "../images/bluesky-logo.svg?raw";
     .introduction-link:hover,
     .introduction-link:focus-visible {
         color: var(--foreground);
+    }
+
+    @container (width <= 40rem) {
+        .introduction-link span {
+            display: none;
+        }
     }
 
     .how-i-work {
