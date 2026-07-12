@@ -1,0 +1,40 @@
+---
+import ScrambleHeading from "../../ui/scramble-heading.astro";
+---
+
+<section id="log" class="content-section log">
+    <ScrambleHeading text="Log" class="heading-2" />
+    <p class="paragprah">Articles, Talks, notes, and ideas</p>
+    <div>ALL, Writing, Talks</div>
+    <div></div>
+    <ul>
+        <li>2026.06.18 WRITING AstroでMarkdownを書き、届けるまで</li>
+        <li>
+            2026.05.10 TALK コードの向こう側 × 校正ツール × チーム Frontend
+            Conference Tokyo
+        </li>
+        <li>2026.04.28 WRITING Information Designとアクセシビリティ</li>
+    </ul>
+</section>
+<style>
+    .content-section {
+        --section-gap: 3rem;
+        --section-padding: 3rem;
+
+        box-sizing: border-box;
+        display: grid;
+        gap: var(--section-gap);
+        min-block-size: 100%;
+        padding: var(--section-padding);
+        border-block-end: 1px solid var(--color-ink);
+    }
+
+    .heading-3 {
+        text-transform: uppercase;
+        font-size: var(--font-size-72);
+    }
+
+    .paragprah {
+        font-size: var(--font-size-16);
+    }
+</style>

@@ -1,0 +1,31 @@
+---
+import ScrambleHeading from "../../ui/scramble-heading.astro";
+---
+
+<section id="links" class="content-section links">
+    <ScrambleHeading text="Links" class="heading-2" />
+    <h3 class="heading-3">Connect <br />the Dots.</h3>
+    <p class="paragprah">Find my work, follow along. or get in touch</p>
+</section>
+<style>
+    .heading-3 {
+        text-transform: uppercase;
+        font-size: var(--font-size-72);
+    }
+
+    .paragprah {
+        font-size: var(--font-size-16);
+    }
+
+    .content-section {
+        --section-gap: 3rem;
+        --section-padding: 3rem;
+
+        box-sizing: border-box;
+        display: grid;
+        gap: var(--section-gap);
+        min-block-size: 100%;
+        padding: var(--section-padding);
+        border-block-end: 1px solid var(--color-ink);
+    }
+</style>

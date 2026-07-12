@@ -2,19 +2,18 @@
 import "../styles/reset.css";
 import "../styles/tokens/colors.css";
 import "../styles/tokens/typography.css";
-import "../styles/tokens/spacing.css";
-import "../styles/tokens/grid.css";
-import { ClientRouter } from "astro:transitions";
+import Header from "./header.astro";
 
 interface Props {
-    title?: string;
+    title: string;
+    lang: string;
 }
 
-const { title } = Astro.props;
+const { title = "Kenji", lang = "en" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,45 +26,17 @@ const { title } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap"
             rel="stylesheet"
         />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
-        <ClientRouter />
     </head>
     <body>
-        <svg class="filter-defs" aria-hidden="true">
-            <defs>
-                <filter id="glitch-wave">
-                    <feTurbulence
-                        type="fractalNoise"
-                        baseFrequency="0.012 0.02"
-                        numOctaves="2"
-                        seed="3"
-                    >
-                        <animate
-                            attributeName="seed"
-                            from="3"
-                            to="100"
-                            dur="48s"
-                            repeatCount="indefinite"
-                        />
-                    </feTurbulence>
-                    <feDisplacementMap in="SourceGraphic" scale="4" />
-                </filter>
-            </defs>
-        </svg>
-        <header class="header">
-            <div class="header-grid">
-                <div class="header-block">
-                    <a href={import.meta.env.BASE_URL} class="mark">knj</a>
-                </div>
-            </div>
-        </header>
-        <main class="main">
+        <div class="wrapper">
+            <Header />
             <slot />
-        </main>
+        </div>
     </body>
 </html>
 
@@ -74,67 +45,40 @@ const { title } = Astro.props;
         box-sizing: border-box;
     }
 
+    html {
+        block-size: 100dvh;
+        background: var(--color-ink);
+        color: var(--color-ink);
+        font-family:
+            "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+            Consolas, monospace;
+        overflow: hidden;
+        overscroll-behavior: none;
+    }
+
     body {
-        background: var(--background-deep);
-        color: var(--foreground);
-        font-family: "DM Mono", monospace;
-        min-block-size: 100dvh;
-        container-type: inline-size;
+        block-size: 100dvh;
+        background: var(--color-ink);
+        padding-block: 1.25rem;
+        padding-inline: 1.25rem;
+        overflow: hidden;
+        overscroll-behavior: none;
     }
 
-    .filter-defs {
-        position: absolute;
-        inline-size: 0;
-        block-size: 0;
-        pointer-events: none;
-    }
-
-    .header {
-        position: sticky;
-        inset-block-start: 0;
-        z-index: 10;
-    }
-
-    .header-grid {
-        max-inline-size: 55rem;
-        margin-inline: auto;
+    .wrapper {
         display: grid;
-        grid-template-columns: repeat(var(--grid-columns), 1fr);
-        column-gap: var(--grid-gutter);
-    }
-
-    .header-block {
-        grid-column: 1 / span 2;
-        background: var(--foreground);
-        padding: clamp(0.875rem, 2vw, 1.25rem);
-        display: flex;
-        align-items: center;
-    }
-
-    @container (width <= 26.25rem) {
-        .header-block {
-            grid-column: 1 / -1;
-        }
-    }
-
-    .mark {
-        font-family: "DM Mono", monospace;
-        font-size: var(--font-size-18);
-        color: var(--background);
-        text-decoration: none;
-        letter-spacing: 0.05em;
-    }
-
-    .main {
-        max-inline-size: 55rem;
+        grid-template-columns: max-content minmax(0, 1fr);
+        background: #f3f0e8;
+        max-inline-size: 75rem;
+        inline-size: 100%;
+        block-size: calc(100dvh - 2.5rem);
         margin-inline: auto;
-        border-block-start: 1px solid var(--grid-rule);
-        border-block-end: 1px solid var(--grid-rule);
+        overflow: visible;
+        border-radius: 1rem;
     }
 
-    @container (width <= 55rem) {
-        .main {
-            padding-inline: 1.25rem;
-        }
+    main {
+        min-block-size: 0;
+        overflow: hidden;
     }
 </style>

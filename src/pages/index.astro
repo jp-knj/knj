@@ -1,414 +1,82 @@
 ---
 import Layout from "../layouts/layout.astro";
-import Grid from "../ui/grid.astro";
-import GridRules from "../ui/grid-rules.astro";
-import Section from "../ui/section.astro";
-import Cell from "../ui/cell.astro";
-import GlitchText from "../ui/glitch-text.astro";
-import { writingAndTalks } from "../data/writing-and-talks";
 import githubLogo from "../images/github-logo.svg?raw";
 import linkedinLogo from "../images/linkedin-logo.svg?raw";
 import xLogo from "../images/x-logo.svg?raw";
 import blueskyLogo from "../images/bluesky-logo.svg?raw";
+import Hero from "./_section/_hero.astro";
+import Profile from "./_section/_profile.astro";
+import Log from "./_section/_log.astro";
+import Links from "./_section/_links.astro";
 ---
 
 <Layout title="Portfolio | Kenji">
-    <Grid>
-        <GridRules />
-        <Section>
-            <Cell start={1} span={7} smallSpan={4}>
-                <h1 class="introduction-title">
-                    <GlitchText
-                        text="Make"
-                        as="span"
-                        intervalRange={[5, 14]}
-                        scale={1.4}
-                    /> the <span class="highlight">Web</span>
-                    <GlitchText
-                        text="quieter"
-                        as="span"
-                        intervalRange={[8, 20]}
-                        scale={1.4}
-                    />
-                </h1>
-                <p class="description">
-                    I'm Kenji <img
-                        class="avatar"
-                        src="https://github.com/jp-knj.png"
-                        alt=""
-                        width="40"
-                        height="40"
-                    />, a Design Engineer at <a
-                        href="https://plaid.co.jp/en/"
-                        target="_blank"
-                        rel="noopener noreferrer">Plaid</a
-                    >
-                    <img
-                        class="avatar"
-                        src="https://github.com/plaidev.png"
-                        alt=""
-                        width="40"
-                        height="40"
-                    />. I work on the seams between design and the web — design
-                    systems, performance, and front-end tooling.
-                </p>
-            </Cell>
-        </Section>
-
-        <Section border="solid-orange">
-            <Cell start={1} span={7} smallSpan={4}>
-                <h2 class="lede">
-                    <span class="highlight"><GlitchText
-                            text="Open source"
-                            as="span"
-                            intervalRange={[1, 4]}
-                            scale={1.4}
-                        /></span> work, focused on <span class="highlight"
-                        ><GlitchText
-                            text="Web"
-                            as="span"
-                            intervalRange={[1, 4]}
-                            scale={1.4}
-                        /></span>.
-                </h2>
-            </Cell>
-            <Cell start={3} span={7} smallSpan={4}>
-                <p class="body">
-                    Maintainer for <a
-                        href="https://github.com/withastro/astro"
-                        target="_blank"
-                        rel="noopener noreferrer">Astro</a
-                    >
-                    <img
-                        class="avatar"
-                        src="https://github.com/withastro.png"
-                        alt=""
-                        width="40"
-                        height="40"
-                    />, mostly the compiler and internationalization.
-                </p>
-                <p class="body">
-                    Organize <a
-                        href="https://astrojp.connpass.com/"
-                        target="_blank"
-                        rel="noopener noreferrer">Astro Japan</a
-                    >
-                    <img
-                        class="avatar"
-                        src="https://media.connpass.com/thumbs/c3/e0/c3e0bd352efdca77cc78b5b8ae738bf6.png"
-                        alt=""
-                        width="162"
-                        height="110"
-                    />, a local chapter that hosts in-person meetups in Tokyo.
-                </p>
-            </Cell>
-        </Section>
-
-        <Section border="solid" start={3} span={6} smallStart={2} smallSpan={3}>
-            <Cell start={1} span={6} smallSpan={3}>
-                <div class="how-i-work">
-                    <h2 class="lede">
-                        How <GlitchText
-                            text="I"
-                            as="span"
-                            intervalRange={[1, 3]}
-                            scale={1.4}
-                        />
-                        <span class="highlight">work</span>.
-                    </h2>
-                    <p class="body">
-                        Read before writing, fix causes over symptoms, and ship
-                        small things slowly. Open source is where I keep
-                        practicing this.
-                    </p>
-                </div>
-            </Cell>
-        </Section>
-
-        <Section start={1} span={2} smallSpan={1}>
-            <Cell as="footer" start={1} span={2} smallSpan={1}>
-                <ul class="introduction-links">
-                    <li>
-                        <a
-                            href="https://github.com/jp-knj"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="introduction-link"
-                        >
-                            <Fragment set:html={githubLogo} />
-                            <span>GitHub</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="https://www.linkedin.com/in/kenji-tomita-10103b210/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="introduction-link"
-                        >
-                            <Fragment set:html={linkedinLogo} />
-                            <span>LinkedIn</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="https://x.com/jp_knj"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="introduction-link"
-                        >
-                            <Fragment set:html={xLogo} />
-                            <span>Twitter</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="https://bsky.app/profile/jp-knj.bsky.social"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="introduction-link"
-                        >
-                            <Fragment set:html={blueskyLogo} />
-                            <span>Bluesky</span>
-                        </a>
-                    </li>
-                </ul>
-            </Cell>
-        </Section>
-
-        <Section>
-            <Cell start={1} span={3} smallSpan={4}>
-                <h2 class="lede">
-                    <GlitchText
-                        text="Writing"
-                        as="span"
-                        intervalRange={[2, 5]}
-                        scale={1.4}
-                    /> &amp; <span class="highlight">Talks</span>.
-                </h2>
-            </Cell>
-            <Cell start={5} span={4} smallSpan={4}>
-                <ul class="entries">
-                    {
-                        writingAndTalks
-                            .filter((entry) => entry.featured)
-                            .map((entry) => (
-                                <li class="entry">
-                                    <span class="entry-meta">
-                                        {entry.year} · {entry.month} ·{" "}
-                                        {entry.type}
-                                    </span>
-                                    <a
-                                        class="entry-link"
-                                        href={entry.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {entry.title}
-                                    </a>
-                                </li>
-                            ))
-                    }
-                </ul>
-                <a
-                    class="view-all"
-                    href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/writing-and-talks`}
-                >
-                    All writing &amp; talks →
-                </a>
-            </Cell>
-        </Section>
-    </Grid>
+    <main class="main">
+        <div class="main-inner">
+            <div class="main-scroll">
+                <Hero />
+                <Profile />
+                <Log />
+                <Links />
+            </div>
+        </div>
+    </main>
 </Layout>
-
 <style>
-    .introduction-title {
-        font-family: Syne, sans-serif;
-        font-size: var(--font-size-144);
-        font-weight: 700;
-        line-height: 0.95;
-        color: var(--foreground);
-        letter-spacing: -0.02em;
+    .main {
+        box-sizing: border-box;
+        display: grid;
+        grid-template-rows: minmax(0, 1fr);
+        min-block-size: 0;
+        padding-block: 1rem;
+        padding-inline-end: 1rem;
+        overflow: visible;
     }
 
-    .highlight {
-        background: linear-gradient(
-            to top,
-            transparent 0,
-            transparent 30%,
-            #ff7a1a 30%,
-            #ff7a1a 55%,
-            transparent 55%
-        );
-        box-decoration-break: clone;
-        padding: 0 0.04em;
+    .main-inner {
+        --section-gap: 3rem;
+        --section-padding: 3rem;
+
+        position: relative;
+        box-sizing: border-box;
+        block-size: 100%;
+        min-block-size: 0;
+        border: 1px solid black;
+        border-start-end-radius: 0.5rem;
+        border-end-end-radius: 0.5rem;
+        border-inline-start: none;
+        overflow: visible;
     }
 
-    .description {
-        font-size: var(--font-size-22);
-        color: var(--foreground-muted);
-        line-height: 1.6;
-        margin-block-start: var(--space-64);
+    .main-scroll {
+        --scrollbar-offset: 0.9rem;
+
+        position: absolute;
+        inset-block: 0;
+        inset-inline: 0 calc(-1 * var(--scrollbar-offset));
+        box-sizing: border-box;
+        padding-inline-end: var(--scrollbar-offset);
+        overflow: hidden auto;
+        scrollbar-color: var(--color-ink) transparent;
+        scrollbar-width: thin;
     }
 
-    .avatar {
-        inline-size: 2rem;
-        block-size: 2rem;
-        border-radius: 50%;
-        object-fit: cover;
-        vertical-align: -0.4em;
+    .main-scroll::-webkit-scrollbar {
+        /* stylelint-disable-next-line csstools/use-logical -- WebKit scrollbar uses physical dimensions. */
+        width: 0.75rem;
     }
 
-    .introduction-links {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-16);
-        color: var(--foreground-muted);
+    .main-scroll::-webkit-scrollbar-track {
+        background: transparent;
     }
 
-    .introduction-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.625rem;
-        font-size: var(--font-size-18);
-        color: inherit;
-        text-decoration: none;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        transition: color 0.2s ease;
+    .main-scroll::-webkit-scrollbar-thumb {
+        background: var(--color-ink);
+        border: 0.1875rem solid var(--color-paper);
+        border-radius: 999rem;
     }
 
-    .introduction-link:hover,
-    .introduction-link:focus-visible {
-        color: var(--foreground);
-    }
-
-    @container (width <= 40rem) {
-        .introduction-link span {
-            display: none;
-        }
-    }
-
-    .how-i-work {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-24);
-    }
-
-    .lede {
-        font-size: var(--font-size-48);
-        color: var(--foreground-secondary);
-        font-weight: 600;
-        line-height: 1.4;
-    }
-
-    .lede::before {
-        content: "";
-        display: inline-block;
-        inline-size: 1em;
-        block-size: 1em;
-        border-radius: 50%;
-        background: #ff7a1a;
-        margin-inline-end: 0.4em;
-        vertical-align: -0.15em;
-    }
-
-    .body {
-        font-size: var(--font-size-22);
-        color: var(--foreground-muted);
-        line-height: 1.7;
-    }
-
-    .body + .body {
-        margin-block-start: var(--space-16);
-    }
-
-    .entries {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-32);
-    }
-
-    .entry {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-8);
-    }
-
-    .entry-meta {
-        font-family: "DM Mono", monospace;
-        font-size: var(--font-size-18);
-        color: var(--foreground-muted);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    .entry-link {
-        font-size: var(--font-size-22);
-        color: var(--foreground-secondary);
-        line-height: 1.4;
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-
-    .entry-link:hover,
-    .entry-link:focus-visible {
-        color: var(--accent);
-    }
-
-    .entry-link:focus-visible {
-        outline: 0.125rem solid var(--accent);
-        outline-offset: 0.125rem;
-    }
-
-    .view-all {
-        display: inline-block;
-        margin-block-start: var(--space-32);
-        font-family: "DM Mono", monospace;
-        font-size: var(--font-size-18);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    .body a,
-    .description a,
-    .view-all {
-        color: var(--accent);
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-
-    .body a::before,
-    .description a::before,
-    .view-all::before {
-        content: "[";
-    }
-
-    .body a::after,
-    .description a::after,
-    .view-all::after {
-        content: "]";
-    }
-
-    .body a:hover,
-    .body a:focus-visible,
-    .description a:hover,
-    .description a:focus-visible,
-    .view-all:hover,
-    .view-all:focus-visible {
-        color: var(--accent-warm);
-    }
-
-    .body a:focus-visible,
-    .description a:focus-visible,
-    .introduction-link:focus-visible,
-    .view-all:focus-visible {
-        outline: 0.125rem solid var(--accent);
-        outline-offset: 0.125rem;
+    .main-scroll::-webkit-scrollbar-thumb:hover {
+        background: var(--color-green);
     }
 </style>

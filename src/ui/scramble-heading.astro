@@ -1,0 +1,145 @@
+---
+interface Props {
+    text: string;
+    as?: "h1" | "h2" | "h3";
+    class?: string;
+    cursor?: string;
+}
+
+const { text, as: Tag = "h2", class: className, cursor = "_" } = Astro.props;
+---
+
+<Tag
+    class:list={["scramble-heading", className]}
+    data-scramble-heading
+    data-scramble-text={text}
+>
+    <span class="scramble-heading__text" data-scramble-heading-text>{text}</span
+    ><span class="scramble-heading__cursor" aria-hidden="true">{cursor}</span>
+</Tag>
+
+<style>
+    .scramble-heading {
+        margin: 0;
+        font-size: var(--font-size-48);
+        line-height: 1;
+    }
+
+    .scramble-heading__text,
+    .scramble-heading__cursor {
+        display: inline-block;
+    }
+
+    .scramble-heading__cursor {
+        animation: scramble-heading-cursor-blink 1s steps(1, end) 650ms infinite;
+    }
+
+    @keyframes scramble-heading-cursor-blink {
+        0%,
+        48% {
+            opacity: 1;
+        }
+
+        49%,
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .scramble-heading__cursor {
+            animation: none;
+        }
+    }
+</style>
+
+<script>
+    const headings = document.querySelectorAll("[data-scramble-heading]");
+    const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!prefersReducedMotion) {
+        const scrambleChars = "~!@$%^&*()-+=[]{}<>?";
+        const frameMs = 60;
+
+        const animateHeading = (heading: Element) => {
+            if (!(heading instanceof HTMLElement)) {
+                return;
+            }
+
+            if (heading.dataset.scrambleInitialized === "true") {
+                return;
+            }
+
+            const headingText = heading.querySelector(
+                "[data-scramble-heading-text]",
+            );
+
+            if (!(headingText instanceof HTMLElement)) {
+                return;
+            }
+
+            heading.dataset.scrambleInitialized = "true";
+
+            const originalText =
+                heading.dataset.scrambleText ?? headingText.textContent ?? "";
+            let frame = 0;
+            let intervalId: number | undefined;
+            const totalFrames = originalText.length * 2;
+
+            const complete = () => {
+                if (intervalId !== undefined) {
+                    window.clearInterval(intervalId);
+                }
+
+                headingText.textContent = originalText;
+            };
+
+            intervalId = window.setInterval(() => {
+                frame += 1;
+                const confirmedLength = Math.min(
+                    originalText.length,
+                    Math.floor(frame / 2),
+                );
+
+                if (confirmedLength >= originalText.length) {
+                    complete();
+                    return;
+                }
+
+                const pendingLength = originalText.length - confirmedLength;
+                const pendingText = Array.from({ length: pendingLength }, () =>
+                    scrambleChars.charAt(
+                        Math.floor(Math.random() * scrambleChars.length),
+                    ),
+                ).join("");
+
+                headingText.textContent =
+                    originalText.slice(0, confirmedLength) + pendingText;
+
+                if (frame >= totalFrames) {
+                    complete();
+                }
+            }, frameMs);
+        };
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    if (!entry.isIntersecting) {
+                        continue;
+                    }
+
+                    observer.unobserve(entry.target);
+                    animateHeading(entry.target);
+                }
+            },
+            { threshold: 0.2 },
+        );
+
+        for (const heading of headings) {
+            observer.observe(heading);
+        }
+    }
+</script>

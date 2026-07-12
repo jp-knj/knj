@@ -1,0 +1,135 @@
+---
+import "../styles/tokens/typography.css";
+import logo from "../images/logo.png";
+---
+
+<header class="header">
+    <div class="header-inner">
+        <div class="header-icon">
+            <a class="icon-link" href="/knj">
+                <img
+                    class="image"
+                    src={logo.src}
+                    alt="Kenji"
+                    width="64"
+                    height="64"
+                />
+            </a>
+            <ul class="list">
+                <li class="listitem">Wu Kenji</li>
+                <li class="listitem">Design Engineer</li>
+                <li class="listitem">Astro Contributor</li>
+                <p>---</p>
+            </ul>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-listitem">
+                    <a class="nav-link" href="#"
+                        ><span class="focus-indicator" aria-hidden="true"
+                        ></span>Profile</a
+                    >
+                </li>
+                <li class="nav-listitem">
+                    <a class="nav-link" href="#"
+                        ><span class="focus-indicator" aria-hidden="true"
+                        ></span>Logs</a
+                    >
+                </li>
+                <li class="nav-listitem">
+                    <a class="nav-link" href="#"
+                        ><span class="focus-indicator" aria-hidden="true"
+                        ></span>Links</a
+                    >
+                </li>
+            </ul>
+        </nav>
+
+        <p>Tokyo | UTC+9</p>
+    </div>
+</header>
+
+<style>
+    .header {
+        box-sizing: border-box;
+        display: grid;
+        grid-template-rows: minmax(0, 1fr);
+        block-size: 100%;
+        min-block-size: 0;
+        padding-block: 1rem;
+        padding-inline-start: 1rem;
+        overflow: hidden;
+    }
+
+    .header-inner {
+        box-sizing: border-box;
+        display: grid;
+        align-content: space-between;
+        gap: clamp(2rem, 8vh, 5rem);
+        block-size: 100%;
+        min-block-size: 0;
+        padding: 1rem;
+        padding-inline-end: 2rem;
+        border-start-start-radius: 0.5rem;
+        border-end-start-radius: 0.5rem;
+        border: 1px solid black;
+    }
+
+    .image {
+        inline-size: 4rem;
+        block-size: 4rem;
+        border-radius: 0.75rem;
+        object-fit: cover;
+    }
+
+    .list {
+        margin-block-start: 1rem;
+        margin-inline-start: 1rem;
+        display: grid;
+        gap: 1rem;
+    }
+
+    .listitem {
+        color: #151515;
+        font-size: var(--font-size-16);
+        line-height: 1.4;
+        letter-spacing: 0.02em;
+    }
+
+    .nav-list {
+        display: grid;
+        gap: 1rem;
+        margin-inline-start: 1rem;
+    }
+
+    .nav-listitem {
+        padding-block: 1rem;
+    }
+
+    .nav-link {
+        all: unset;
+        cursor: pointer;
+        position: relative;
+        display: inline-block;
+        font-size: var(--font-size-20);
+    }
+
+    .focus-indicator {
+        position: absolute;
+        inset-block-start: 50%;
+        inset-inline-start: -1rem;
+        inline-size: 0.5rem;
+        block-size: 0.5rem;
+        background: var(--color-green);
+        opacity: 0;
+        transform: translateY(-50%) scale(0.6);
+        transition:
+            opacity 120ms ease,
+            transform 120ms ease;
+    }
+
+    .nav-link:focus-visible .focus-indicator {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+</style>
