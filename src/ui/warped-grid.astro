@@ -1,0 +1,133 @@
+---
+interface Props {
+  density?: number;
+  strength?: number;
+  opacity?: number;
+  duration?: number;
+}
+
+const {
+  density = 64,
+  strength = 18,
+  opacity = 0.26,
+  duration = 18,
+} = Astro.props;
+
+const frequencyA = "0.006 0.012";
+const frequencyB = "0.012 0.006";
+---
+
+<div class="warped-grid" aria-hidden="true">
+  <svg
+    class="warped-grid__svg warped-grid__svg--animated"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+    focusable="false"
+  >
+    <defs>
+      <pattern
+        id="warped-grid-pattern"
+        width={density}
+        height={density}
+        patternUnits="userSpaceOnUse"
+      >
+        <path
+          d={`M ${density} 0 H 0 V ${density}`}
+          fill="none"
+          stroke="var(--color-paper, #f3f0e8)"
+          stroke-width="1"
+          vector-effect="non-scaling-stroke"
+        />
+      </pattern>
+      <filter id="warped-grid-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency={frequencyA}
+          numOctaves="2"
+          seed="8"
+          result="noise"
+        >
+          <animate
+            attributeName="baseFrequency"
+            dur={`${duration}s`}
+            values={`${frequencyA}; ${frequencyB}; ${frequencyA}`}
+            repeatCount="indefinite"
+          />
+        </feTurbulence>
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="noise"
+          scale={strength}
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
+    </defs>
+    <rect
+      width="100%"
+      height="100%"
+      fill="url(#warped-grid-pattern)"
+      filter="url(#warped-grid-filter)"
+      opacity={opacity}
+    />
+  </svg>
+
+  <svg
+    class="warped-grid__svg warped-grid__svg--static"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+    focusable="false"
+  >
+    <defs>
+      <pattern
+        id="warped-grid-pattern-static"
+        width={density}
+        height={density}
+        patternUnits="userSpaceOnUse"
+      >
+        <path
+          d={`M ${density} 0 H 0 V ${density}`}
+          fill="none"
+          stroke="var(--color-paper, #f3f0e8)"
+          stroke-width="1"
+          vector-effect="non-scaling-stroke"
+        />
+      </pattern>
+    </defs>
+    <rect
+      width="100%"
+      height="100%"
+      fill="url(#warped-grid-pattern-static)"
+      opacity={opacity}
+    />
+  </svg>
+</div>
+
+<style>
+  .warped-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .warped-grid__svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .warped-grid__svg--static {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .warped-grid__svg--animated {
+      display: none;
+    }
+
+    .warped-grid__svg--static {
+      display: block;
+    }
+  }
+</style>

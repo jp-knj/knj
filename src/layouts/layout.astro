@@ -3,6 +3,7 @@ import "../styles/reset.css";
 import "../styles/tokens/colors.css";
 import "../styles/tokens/typography.css";
 import Header from "./header.astro";
+import WarpedGrid from "../ui/warped-grid.astro";
 
 interface Props {
     title: string;
@@ -33,6 +34,7 @@ const { title = "Kenji", lang = "en" } = Astro.props;
         <title>{title}</title>
     </head>
     <body>
+        <WarpedGrid density={64} strength={18} opacity={0.26} duration={18} />
         <div class="wrapper">
             <Header />
             <slot />
@@ -66,6 +68,8 @@ const { title = "Kenji", lang = "en" } = Astro.props;
     }
 
     .wrapper {
+        position: relative;
+        z-index: 1;
         display: grid;
         grid-template-columns: max-content minmax(0, 1fr);
         background: #f3f0e8;
