@@ -5,7 +5,7 @@ import ScrambleHeading from "../../ui/scramble-heading.astro";
 
 <section id="links" class="content-section links">
     <div class="links-copy">
-        <ScrambleHeading text="_Links" cursor="" class="links-heading" />
+        <ScrambleHeading text="Links" cursor="_" class="heading-3" />
         <h3 class="links-title">Connect <br />the dots.</h3>
         <p class="links-description">
             Find my work, follow along, or get in touch. Move a node to redraw
@@ -53,12 +53,9 @@ import ScrambleHeading from "../../ui/scramble-heading.astro";
         pointer-events: none;
     }
 
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- Astro uses :global() to style child components. */
-    :global(.links-heading) {
-        font-size: var(--font-size-20);
-        font-weight: 500;
-        letter-spacing: 0.08em;
+    .heading-3 {
         text-transform: uppercase;
+        font-size: var(--font-size-72);
     }
 
     .links-title {
