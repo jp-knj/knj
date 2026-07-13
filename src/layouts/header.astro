@@ -25,19 +25,19 @@ import logo from "../images/logo.png";
         <nav class="nav">
             <ul class="nav-list">
                 <li class="nav-listitem">
-                    <a class="nav-link" href="#"
+                    <a class="nav-link" href="#profile"
                         ><span class="focus-indicator" aria-hidden="true"
                         ></span>Profile</a
                     >
                 </li>
                 <li class="nav-listitem">
-                    <a class="nav-link" href="#"
+                    <a class="nav-link" href="#log"
                         ><span class="focus-indicator" aria-hidden="true"
                         ></span>Logs</a
                     >
                 </li>
                 <li class="nav-listitem">
-                    <a class="nav-link" href="#"
+                    <a class="nav-link" href="#links"
                         ><span class="focus-indicator" aria-hidden="true"
                         ></span>Links</a
                     >
@@ -131,5 +131,56 @@ import logo from "../images/logo.png";
     .nav-link:focus-visible .focus-indicator {
         opacity: 1;
         transform: translateY(-50%) scale(1);
+    }
+
+    @media (width <= 56rem) {
+        .header {
+            block-size: auto;
+            padding: 0.5rem 0.5rem 0;
+            overflow: visible;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            block-size: auto;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+        }
+
+        .header-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .image {
+            inline-size: 3rem;
+            block-size: 3rem;
+            border-radius: 0.6rem;
+        }
+
+        .list,
+        .header-inner > p {
+            display: none;
+        }
+
+        .nav {
+            margin-inline-start: auto;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: clamp(0.25rem, 2vw, 0.75rem);
+            margin: 0;
+        }
+
+        .nav-listitem {
+            padding: 0.5rem 0;
+        }
+
+        .nav-link {
+            font-size: 0.8125rem;
+        }
     }
 </style>

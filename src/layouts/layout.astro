@@ -21,9 +21,9 @@ const { title = "Kenji", lang = "en" } = Astro.props;
         <link
             rel="icon"
             type="image/svg+xml"
-            href={`${import.meta.env.BASE_URL}favicon.svg`}
+            href={`${import.meta.env.BASE_URL}/favicon.svg`}
         />
-        <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
+        <link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -84,5 +84,17 @@ const { title = "Kenji", lang = "en" } = Astro.props;
     main {
         min-block-size: 0;
         overflow: hidden;
+    }
+
+    @media (width <= 56rem) {
+        body {
+            padding: 0.75rem;
+        }
+
+        .wrapper {
+            grid-template-rows: auto minmax(0, 1fr);
+            grid-template-columns: minmax(0, 1fr);
+            block-size: calc(100dvh - 1.5rem);
+        }
     }
 </style>

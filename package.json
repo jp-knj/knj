@@ -8,13 +8,15 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "biome check --write .",
-    "lint:css": "stylelint \"src/**/*.{css,astro}\"",
-    "lint:css:fix": "stylelint --fix \"src/**/*.{css,astro}\"",
+    "lint:css": "stylelint \"src/**/*.{css,astro,svelte}\"",
+    "lint:css:fix": "stylelint --fix \"src/**/*.{css,astro,svelte}\"",
     "lint:a11y": "eslint \"src/**/*.{astro,ts,tsx,js,jsx}\"",
     "lint": "pnpm lint:css && pnpm lint:a11y"
   },
   "dependencies": {
-    "astro": "5.17.1"
+    "@astrojs/svelte": "9.0.1",
+    "astro": "7.0.7",
+    "svelte": "5.56.4"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.4",

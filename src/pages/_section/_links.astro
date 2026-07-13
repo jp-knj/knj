@@ -1,22 +1,24 @@
 ---
+import LinksGraph from "../../ui/links-graph.svelte";
 import ScrambleHeading from "../../ui/scramble-heading.astro";
 ---
 
 <section id="links" class="content-section links">
-    <ScrambleHeading text="Links" class="heading-2" />
-    <h3 class="heading-3">Connect <br />the Dots.</h3>
-    <p class="paragprah">Find my work, follow along. or get in touch</p>
+    <div class="links-copy">
+        <ScrambleHeading text="_Links" cursor="" class="links-heading" />
+        <h3 class="links-title">Connect <br />the dots.</h3>
+        <p class="links-description">
+            Find my work, follow along, or get in touch. Move a node to redraw
+            the map.
+        </p>
+    </div>
+
+    <div class="links-graph">
+        <LinksGraph client:visible />
+    </div>
 </section>
+
 <style>
-    .heading-3 {
-        text-transform: uppercase;
-        font-size: var(--font-size-72);
-    }
-
-    .paragprah {
-        font-size: var(--font-size-16);
-    }
-
     .content-section {
         --section-gap: 3rem;
         --section-padding: 3rem;
@@ -27,5 +29,99 @@ import ScrambleHeading from "../../ui/scramble-heading.astro";
         min-block-size: 100%;
         padding: var(--section-padding);
         border-block-end: 1px solid var(--color-ink);
+    }
+
+    .links {
+        --graph-offset: clamp(7rem, 12vw, 9rem);
+
+        position: relative;
+        isolation: isolate;
+        display: block;
+        min-block-size: max(100%, 71.5rem);
+        overflow: hidden;
+    }
+
+    .links-copy {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        align-content: start;
+        gap: 2rem;
+        inline-size: min(38%, 27rem);
+        min-inline-size: 15rem;
+        padding-block-start: 0.5rem;
+        pointer-events: none;
+    }
+
+    /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- Astro uses :global() to style child components. */
+    :global(.links-heading) {
+        font-size: var(--font-size-20);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .links-title {
+        max-inline-size: 8ch;
+        font-size: var(--font-size-72);
+        line-height: 0.94;
+        letter-spacing: -0.055em;
+        text-transform: uppercase;
+    }
+
+    .links-description {
+        max-inline-size: 28rem;
+        color: var(--foreground-muted);
+        font-size: var(--font-size-16);
+        line-height: 1.65;
+    }
+
+    .links-graph {
+        position: absolute;
+        z-index: 1;
+        inset-block: calc(var(--section-padding) + var(--graph-offset))
+            var(--section-padding);
+        inset-inline: var(--section-padding);
+        min-inline-size: 0;
+        pointer-events: none;
+    }
+
+    @media (width <= 56rem) {
+        .content-section {
+            --section-gap: 2.5rem;
+            --section-padding: clamp(1.25rem, 5vw, 3rem);
+        }
+
+        .links {
+            --graph-offset: 7rem;
+
+            min-block-size: 82rem;
+        }
+
+        .links-copy {
+            gap: 1.5rem;
+            inline-size: min(72%, 32rem);
+            min-inline-size: 0;
+        }
+
+        .links-title {
+            max-inline-size: 8ch;
+        }
+    }
+
+    @media (width <= 36rem) {
+        .links {
+            --section-padding: 1.25rem;
+
+            gap: 2rem;
+        }
+
+        .links-title {
+            font-size: clamp(2.5rem, 13vw, 4.5rem);
+        }
+
+        .links-copy {
+            inline-size: 78%;
+        }
     }
 </style>

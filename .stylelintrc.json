@@ -45,7 +45,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.astro"],
+      "files": ["**/*.{astro,svelte}"],
       "customSyntax": "postcss-html"
     },
     {

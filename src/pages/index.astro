@@ -78,4 +78,15 @@ import Links from "./_section/_links.astro";
     .main-scroll::-webkit-scrollbar-thumb:hover {
         background: var(--color-green);
     }
+
+    @media (width <= 56rem) {
+        .main {
+            padding: 0.5rem;
+        }
+
+        .main-inner {
+            border: 1px solid var(--color-ink);
+            border-radius: 0.5rem;
+        }
+    }
 </style>
